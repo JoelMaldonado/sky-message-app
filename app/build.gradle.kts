@@ -91,7 +91,11 @@ dependencies {
     implementation(libs.hilt)
     implementation(libs.hilt.navigation)
     kapt(libs.hilt.compiler)
+
+    // Socket.IO
     implementation(libs.socket.io.client) {
         exclude(group = "org.json", module = "json")
     }
+
+    implementation(libs.lottie.compose)
 }

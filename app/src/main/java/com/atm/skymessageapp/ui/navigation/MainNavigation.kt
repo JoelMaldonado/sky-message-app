@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.atm.skymessageapp.ui.features.Home.HomeScreen
 import com.atm.skymessageapp.ui.features.Login.LoginScreen
+import com.atm.skymessageapp.ui.features.SendMessages.SendMessagesScreen
 
 
 @Composable
@@ -28,18 +29,25 @@ fun MainNavigation(
         composable<Routes.Login> {
             LoginScreen(
                 toHome = {
-                    navController.navigate(Routes.Home(24))
+                    navController.navigate(Routes.Home)
                 }
             )
         }
 
         composable<Routes.Home> {
-            val args = it.toRoute<Routes.Home>()
             HomeScreen(
-                userId = args.userId
+                toSendMessages = {
+                    navController.navigate(Routes.SendMessagesScreen(14))
+                }
             )
         }
 
+        composable<Routes.SendMessagesScreen> {
+            val args = it.toRoute<Routes.SendMessagesScreen>()
+            SendMessagesScreen(
+                userId = args.userId,
+            )
+        }
     }
 
 }

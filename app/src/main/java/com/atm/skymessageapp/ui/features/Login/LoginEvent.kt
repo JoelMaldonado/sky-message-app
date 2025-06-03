@@ -5,4 +5,6 @@ sealed class LoginEvent {
     data class SetPassword(val value: String) : LoginEvent()
     object Login: LoginEvent()
     object TogglePasswordVisibility : LoginEvent()
+    object ClearSuccessLogin: LoginEvent()
+    object ClearError: LoginEvent()
 }

@@ -4,6 +4,7 @@ import com.atm.skymessageapp.data.network.api.ApiService
 import com.atm.skymessageapp.data.network.request.LoginRequest
 import com.atm.skymessageapp.domain.repository.AuthRepository
 import javax.inject.Inject
+import com.atm.skymessageapp.core.Result
 
 class AuthRepositoryImpl @Inject constructor(
     private val api: ApiService
@@ -20,12 +21,12 @@ class AuthRepositoryImpl @Inject constructor(
             )
             val call = api.login(request)
             if (call.isSuccessful) {
-                Result.success("Login successful")
+                Result.Success("Login successful")
             } else {
-                Result.failure(Exception("Login failed with code: ${call.code()}"))
+                Result.Error(Exception("Login failed with code: ${call.code()}"))
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.Error(e)
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.atm.skymessageapp.di
 
 import com.atm.skymessageapp.BuildConfig
-import com.atm.skymessageapp.data.network.api.ApiService
-import com.atm.skymessageapp.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

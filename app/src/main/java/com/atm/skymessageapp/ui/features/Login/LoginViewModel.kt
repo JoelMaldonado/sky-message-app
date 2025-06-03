@@ -1,17 +1,16 @@
 package com.atm.skymessageapp.ui.features.Login
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.atm.skymessageapp.core.Result
 import com.atm.skymessageapp.core.validators.PasswordValidator
 import com.atm.skymessageapp.core.validators.UserValidator
 import com.atm.skymessageapp.domain.usecase.auth.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -35,41 +34,42 @@ class LoginViewModel @Inject constructor(
             LoginEvent.TogglePasswordVisibility -> {
                 components = components.copy(isVisiblePassword = !components.isVisiblePassword)
             }
+
+            LoginEvent.ClearSuccessLogin -> components = components.copy(isSuccessLogin = false)
+            LoginEvent.ClearError -> components = components.copy(error = null)
         }
     }
 
     private fun login() {
         viewModelScope.launch {
-            components = components.copy(isLoading = true)
-            delay(2000)
             components = components.copy(
+                isLoading = true,
                 errorUser = UserValidator.validate(state.user),
                 errorPassword = PasswordValidator.validate(state.password)
             )
+
             if (components.isValid() == false) {
-                components = components.copy(isLoading = false)
-                Log.d("tagito", "No paso ${components.isValid()}")
                 return@launch
             }
-            Log.d("tagito", "Si paso")
 
             val res = withContext(Dispatchers.IO) {
-                loginUseCase.invoke(
+                loginUseCase(
                     username = state.user,
                     password = state.password
                 )
             }
 
-            res.fold(
-                onFailure = {
-                    Log.d("tagito", it.message ?: "Unknown error")
-                },
-                onSuccess = {
-                    Log.d("tagito", "Login successful: $it")
-                }
-            )
+            components = when (res) {
+                is Result.Error -> components.copy(
+                    isLoading = false,
+                    error = res.exception.message
+                )
 
-            components = components.copy(isLoading = false)
+                is Result.Success -> components.copy(
+                    isLoading = false,
+                    isSuccessLogin = true
+                )
+            }
         }
     }
 

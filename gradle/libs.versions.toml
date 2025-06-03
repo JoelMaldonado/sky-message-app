@@ -22,6 +22,8 @@ hilt = "2.50"
 hiltNavigation = "1.2.0"
 # Socket.IO Client
 socketIOClient = "2.0.1"
+# Lottie
+lottieCompose = "6.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -55,6 +57,8 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
 # Socket.IO Client
 socket-io-client = { module = "io.socket:socket.io-client", version.ref = "socketIOClient" }
+# Lottie
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 
 
 [plugins]

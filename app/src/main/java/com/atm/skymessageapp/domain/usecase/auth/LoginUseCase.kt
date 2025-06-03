@@ -1,5 +1,6 @@
 package com.atm.skymessageapp.domain.usecase.auth
 
+import com.atm.skymessageapp.core.Result
 import com.atm.skymessageapp.domain.repository.AuthRepository
 import javax.inject.Inject
 

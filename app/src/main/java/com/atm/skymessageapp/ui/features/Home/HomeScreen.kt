@@ -1,47 +1,48 @@
 package com.atm.skymessageapp.ui.features.Home
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Message
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.atm.skymessageapp.ui.components.CustomElevatedCard
+import com.atm.skymessageapp.ui.components.ScreenContainer
+import com.atm.skymessageapp.ui.theme.ColorBlack
+import com.atm.skymessageapp.ui.theme.Typography
 
 @Composable
 fun HomeScreen(
-    userId: Int,
+    toSendMessages: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
 
-    val messages = viewModel.mensajes.collectAsState().value
-
-    LaunchedEffect(
-        key1 = Unit
+    ScreenContainer(
+        modifier = Modifier.fillMaxSize()
     ) {
-        viewModel.init()
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
-    ) {
-        Text("Messages $userId")
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
+        CustomElevatedCard(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = toSendMessages
         ) {
-            items(messages) {
-                Text(it.second)
-            }
+            Icon(
+                modifier = Modifier.size(42.dp),
+                imageVector = Icons.Default.Message,
+                contentDescription = null,
+                tint = ColorBlack
+            )
+            Text(
+                text = "Mensajes",
+                style = Typography.titleSmall
+            )
+            Text(
+                text = "Prueba",
+                style = Typography.bodyMedium
+            )
         }
     }
 }

@@ -8,7 +8,10 @@ object Routes {
     object Login
 
     @Serializable
-    data class Home(
+    object Home
+
+    @Serializable
+    data class SendMessagesScreen(
         val userId: Int
     )
 }
