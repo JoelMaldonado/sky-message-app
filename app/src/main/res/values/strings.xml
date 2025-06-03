@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SkyMessage</string>
+    <string name="login_user">Usuario</string>
+    <string name="login_title">Iniciar Sesión</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_btn">Iniciar Sesión</string>
+</resources>
