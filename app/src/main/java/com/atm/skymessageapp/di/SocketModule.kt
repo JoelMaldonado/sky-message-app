@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -15,5 +14,5 @@ object SocketModule {
 
     @Singleton
     @Provides
-    fun provideSocketService(): SocketRepository = SocketRepositoryImpl("https://yourserver.com")
+    fun provideSocketService(): SocketRepository = SocketRepositoryImpl("http://192.168.68.105:7419")
 }

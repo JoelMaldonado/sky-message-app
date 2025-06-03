@@ -1,7 +1,7 @@
 package com.atm.skymessageapp.data.repository
 
-import com.atm.skymessageapp.domain.states.SocketConnectionState
 import com.atm.skymessageapp.domain.repository.SocketRepository
+import com.atm.skymessageapp.domain.states.SocketConnectionState
 import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,6 @@ import javax.inject.Inject
 class SocketRepositoryImpl @Inject constructor(
     private val socketUrl: String
 ) : SocketRepository {
-
 
     private val _connectionState = MutableStateFlow(SocketConnectionState.Disconnected)
     override val isConnected: StateFlow<SocketConnectionState> = _connectionState
@@ -25,15 +24,15 @@ class SocketRepositoryImpl @Inject constructor(
                 transports = arrayOf("websocket")
                 reconnection = true
             }
-            socket = IO.socket("http://192.168.68.105:3000", options)
+            socket = IO.socket(socketUrl, options)
 
             _connectionState.value = SocketConnectionState.Connecting
 
             socket?.on(Socket.EVENT_CONNECT) {
                 _connectionState.value = SocketConnectionState.Connected
-                val json = JSONObject()
-                json.put("id", "Android S10+")
-                socket?.emit("available", json)
+                val request = JSONObject()
+                request.put("id", "Android S10+")
+                socket?.emit("available", request)
             }
 
             socket?.on(Socket.EVENT_DISCONNECT) {
@@ -55,6 +54,5 @@ class SocketRepositoryImpl @Inject constructor(
         socket?.off()
         _connectionState.value = SocketConnectionState.Disconnected
     }
-
 
 }
