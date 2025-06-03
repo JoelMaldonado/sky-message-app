@@ -1,5 +1,6 @@
 package com.atm.skymessageapp.di
 
+import com.atm.skymessageapp.BuildConfig
 import com.atm.skymessageapp.data.network.api.ApiService
 import com.atm.skymessageapp.util.Constants
 import dagger.Module
@@ -33,7 +34,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
