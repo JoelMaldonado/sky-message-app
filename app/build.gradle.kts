@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.kotlin.serialization)
     kotlin("kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -97,5 +98,18 @@ dependencies {
         exclude(group = "org.json", module = "json")
     }
 
+    // Lottie
     implementation(libs.lottie.compose)
+
+    // Room
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
+    ksp (libs.room.compiler)
+
+    // WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.10.1")
+
+    // Hilt WorkManager
+    implementation("androidx.hilt:hilt-work:1.2.0")
+    kapt ("androidx.hilt:hilt-compiler:1.2.0")
 }

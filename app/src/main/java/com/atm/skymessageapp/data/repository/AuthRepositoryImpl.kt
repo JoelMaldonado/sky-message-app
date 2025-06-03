@@ -5,9 +5,11 @@ import com.atm.skymessageapp.data.network.request.LoginRequest
 import com.atm.skymessageapp.domain.repository.AuthRepository
 import javax.inject.Inject
 import com.atm.skymessageapp.core.Result
+import com.atm.skymessageapp.data.database.dao.MessageDao
 
 class AuthRepositoryImpl @Inject constructor(
-    private val api: ApiService
+    private val api: ApiService,
+    private val dao: MessageDao
 ) : AuthRepository {
 
     override suspend fun login(
